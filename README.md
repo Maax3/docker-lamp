@@ -20,11 +20,31 @@ Después tenéis que establecer un punto de ruptura y seleccionar la siguiente o
 
 ![ads](https://i.gyazo.com/ffe1276679a1619a5365f08b7f2ce0e0.png)
 
-El último paso es tener el contenedor corriendo y encontrarse exactamente en la misma página donde vas a correr el test. No vale estar en la actividad2.php cuando estás haciendo un punto de ruptura en la actividad1.php.
 
-Ahora, hacer click en el boton verde y si no se activa automáticamente tenéis que ir a la página.php que corresponda y recargarla (F5) de forma manual.
+![asd](https://i.gyazo.com/118e4c92c0a2c5b8f3310ed9aa788af4.png)
 
-Si aún así no va bien, significa que la configuración del JSON no esta configurada correctamente. Aseguraros de que tenéis la carpeta .vscode dentro de docker-lamp y que tenga esta configuración:
+Cuando lo hagáis por primera vez, os pedirá crear la configuración. Le dais a configurar y se os abrira un archivo ```LAUNCH.JSON```.
+
+Donde tiene que tener esta configuración:
+
+```PHP
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Listen for Xdebug",
+            "type": "php",
+            "request": "launch",
+            "port": 9003, 
+            "pathMappings": {
+                "/var/www/html": "${workspaceFolder}/docker-lamp/www"
+              }
+        }
+    ]
+}
+```
+
+Si la primera no funciona, probar esta y también probad cambiar la carpeta de .vscode de lugar.
 
 ```PHP
 {
@@ -42,9 +62,10 @@ Si aún así no va bien, significa que la configuración del JSON no esta config
     ]
 }
 ```
-Si no tenéis la carpeta .vscode podéis configurar el archivo de forma manual copiando y pegando el codigo de arriba desde el propio IDE. Recordad ubicar la carpeta que cree Visual Code donde corresponda (dentro de lamp)
 
-![asd](https://i.gyazo.com/118e4c92c0a2c5b8f3310ed9aa788af4.png)
+El último paso es tener el contenedor corriendo y encontrarse exactamente en la misma página donde vas a correr el test. No vale estar en la actividad2.php cuando estás haciendo un punto de ruptura en la actividad1.php.
+
+Ahora, hacer click en el boton verde tenéis que ir a la página.php que corresponda y recargarla (F5) de forma manual. Si todo va bien la ventana del VScode parpadeará anunciando el comienzo del debugger.
 
 Si aun así no funciona...preguntad al chatGPT.
 
