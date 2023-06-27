@@ -12,6 +12,9 @@ No hay que hacer nada más que ejecutar el comando ```docker-compose up -d``` de
 Con ese comando se os cargará todo lo necesario para hacer que funcione mySQL, apache, y demás en docker. Ahora explicaré los *detalles* de algunos comandos para que sepáis como configurarlo a vuestro gusto.
 
 # Configuración de Xdebug
+
+```Podéis hacer SKIP a todo el texto mirando este``` [video de 1min](https://youtu.be/61luX5kWwKo)
+
 Para iniciar el debuger tenéis que ir a la pestaña propia que tiene VScode.
 
 ![asd](https://i.gyazo.com/f82931d7403070345b0ed4bdac6e75fc.png)
