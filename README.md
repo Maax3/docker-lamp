@@ -2,18 +2,22 @@
 ![ads](https://i.gyazo.com/7601bc9497056eff44e6c9ab6ed149bd.png)
 
 # Primeros pasos
-Lo primero que hay que hacer es descargarse el git y el docker desktop. Lo podéis hacer en las páginas oficiales [aqui git](https://git-scm.com/downloads) y [aqui docker](https://www.docker.com/products/docker-desktop/).
+* Creais una nueva carpeta
+* Abris la terminal dentro del proyecto
+* Escribis ``git clone`` + la URL
 
-Una vez que instaléis los programas, creais una carpeta en el escritorio y la abris con Visual Studio Code. Después os toca abrir la terminal con ```F1``` y escribir git clone https://github.com/Vostenznuk/docker-lamp.git
+![](https://i.gyazo.com/777041711dc5dc4f0c566245ed197f56.png)
+
+``NOTA:`` para los usuarios de Windows probablemente hay que descargarse el docker-desktop para que funcione correctamente.
 
 # Instalación de contenedores
-No hay que hacer nada más que ejecutar el comando ```docker-compose up -d``` dentro de la carpeta docker-lamp que acabáis de descargar.
+Una vez clonado, ejecutar el comando ```docker-compose up -d``` dentro de la carpeta. Es importante que esteis en la carpeta donde estén los archivos docker.
 
-Con ese comando se os cargará todo lo necesario para hacer que funcione mySQL, apache, y demás en docker. Ahora explicaré los *detalles* de algunos comandos para que sepáis como configurarlo a vuestro gusto.
+Con ese comando se os cargará todo lo necesario para hacer que funcione mySQL, apache, y el Xdebuger en docker. 
 
 # Configuración de Xdebug
 
-```Podéis hacer SKIP a todo el texto mirando este``` [video de 1min](https://youtu.be/61luX5kWwKo)
+* Video ilustrativo de como hacer funcionar el Xdebugger: [video de 1min](https://youtu.be/61luX5kWwKo)
 
 Para iniciar el debuger tenéis que ir a la pestaña propia que tiene VScode.
 
@@ -26,9 +30,9 @@ Después tenéis que establecer un punto de ruptura y seleccionar la siguiente o
 
 ![asd](https://i.gyazo.com/118e4c92c0a2c5b8f3310ed9aa788af4.png)
 
-Cuando lo hagáis por primera vez, os pedirá crear la configuración. Le dais a configurar y se os abrira un archivo ```LAUNCH.JSON```.
+Cuando lo hagáis por primera vez, os pedirá crear la configuración. Le dais a configurar y se os abrira un archivo ```LAUNCH.JSON```. Si no se os abre nada, podéis darle a la rueda de settings y acceder al JSON directamente.
 
-Donde tiene que tener esta configuración:
+### Copiar y pegar la siguiente configuración en el JSON del debugger:
 
 ```PHP
 {
@@ -47,44 +51,44 @@ Donde tiene que tener esta configuración:
 }
 ```
 
-Si la primera no funciona, probar esta y también probad cambiar la carpeta de .vscode de lugar.
+### Explicacion del JSON:
 
-```PHP
-{
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "name": "Listen for Xdebug",
-            "type": "php",
-            "request": "launch",
-            "port": 9003, 
-            "pathMappings": {
-                "/var/www/html": "${workspaceFolder}/../docker-lamp/www"
-              }
-        }
-    ]
-}
-```
+Para que funcione correctamente el Debugger de PHP necesitais especificar correctamente la ruta de vuestra carpeta ``WWW`` o "pathMap". Es decir, si teneis un árbol de trabjo donde teneis Mi_proyecto/docker-lamp/www. Entonces la configuración funcionará.
 
-El último paso es tener el contenedor corriendo y encontrarse exactamente en la misma página donde vas a correr el test. No vale estar en la actividad2.php cuando estás haciendo un punto de ruptura en la actividad1.php.
+Sin embargo, si tenéis sub-carpetas o un árbol más complicado debéis modificar la ruta de forma manual y añadirla al JSON. En mi caso por ejemplo mi "WORKSPACEFOLDER" es la carpeta que tengo en el escritorio que se llama 2DAW, pero dentro tengo más subcarpetas y tengo que especificarlo de forma manual tal que así: ``"${workspaceFolder}/Entornos_Servidor/Trimestre 1/docker-lamp/www"``
 
-Ahora, hacer click en el boton verde tenéis que ir a la página.php que corresponda y recargarla (F5) de forma manual. Si todo va bien la ventana del VScode parpadeará anunciando el comienzo del debugger.
+### Ultimos pasos
 
-Si aun así no funciona...preguntad al chatGPT.
+El último paso es tener el contenedor docker activo y encontrarse exactamente en la misma página.php donde se va realizar el test. No vale estar en la actividad2.php cuando estás haciendo un punto de ruptura en el index.php (por decir un ejemplo). 
+
+Finalmente, para iniciar el Debugger sigue estos 3 pasos:
+* Establece un punto de ruptura
+* Dale al play
+* Recarga la pagina.php de forma manual en Chrome
+
+Si todo va bien, el VsCode parpadeará y el Debugger empezará a funcionar.
 
 # Configuración de DockerFile
 
-Es donde podemos instalar programas a nuestro Linux. En nuestro caso, lo más relevante sería cambiar la versión PHP por una más antigua o nueva. En caso de que quieras cambiar la versión PHP tan solo debes cambiar la siguiente linea:
+En nuestro caso, lo más relevante sería cambiar la versión PHP por una más antigua o nueva. En caso de que quieras cambiar la versión PHP tan solo debes cambiar la siguiente linea:
 
 ```PHP
 FROM php:8.2.7-apache
 ```
-Puedes encontrar las diferentes versiones de PHP en: [dockerhub](https://github.com/docker-library/docs/blob/master/php/README.md#supported-tags-and-respective-dockerfile-links). Busca cualquiera que venga con```-apache```.
+
+a (por ejemplo):
+
+```PHP
+FROM php:9.0.1-apache
+```
+
+Puedes encontrar las diferentes versiones de PHP en: [dockerhub](https://github.com/docker-library/docs/blob/master/php/README.md#supported-tags-and-respective-dockerfile-links). Busca cualquiera que venga con ```-apache```.
 
 # Configuración de Docker-Compose File
+
 Este fichero nos permitirá cambiar los puertos de nuestro localhost, mysql, phpAdmin, contraseña de mysql entre otras cosas. Si os interesa cambiar los puertos mirar ```ports```.
 
 # Configuracion de archivos
-La estructura de carpetas y su significado es el siguiente:
-* ```WWW``` representa nuestro contenido. Es donde vamos a poner el index.php y todos nuestros archivos.
+
+* ```WWW``` representa nuestro contenido. Es donde vamos a poner el index.php y todos nuestros archivos. 
 * ```DUMP``` es el repositorio de nuestra base de datos. Cualquier archivo .sql que dejéis ahí se creará con el inicio del contenedor. Sino lo hace, lo podéis hacer de forma manual con phpAdmin o probar rehacer el contenedor con el comando de docker-compose up -d --build.
