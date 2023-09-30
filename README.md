@@ -53,9 +53,9 @@ Cuando lo hagáis por primera vez, os pedirá crear la configuración. Le dais a
 
 ### Explicacion del JSON:
 
-Para que funcione correctamente el Debugger de PHP necesitais especificar correctamente la ruta de vuestra carpeta ``WWW`` o "pathMap". Es decir, si teneis un árbol de trabjo donde teneis Mi_proyecto/docker-lamp/www. Entonces la configuración funcionará.
+Para que funcione correctamente el Debugger de PHP necesitais especificar correctamente la ruta de vuestra carpeta ``www`` o "pathMap". Es decir, si teneis un árbol de trabjo donde teneis Mi_proyecto/docker-lamp/www. Entonces la configuración funcionará.
 
-Sin embargo, si tenéis sub-carpetas o un árbol más complicado debéis modificar la ruta de forma manual y añadirla al JSON. En mi caso por ejemplo mi "WORKSPACEFOLDER" es la carpeta que tengo en el escritorio que se llama 2DAW, pero dentro tengo más subcarpetas y tengo que especificarlo de forma manual tal que así: ``"${workspaceFolder}/Entornos_Servidor/Trimestre 1/docker-lamp/www"``
+Sin embargo, si tenéis sub-carpetas o un árbol más complicado debéis modificar la ruta de forma manual y añadirla al JSON. En mi caso mi "WORKSPACEFOLDER" es la carpeta que tengo en el escritorio que se llama 2DAW, pero dentro tengo más subcarpetas y por ello tengo que especificarlo de forma manual tal que así: ``"${workspaceFolder}/Entornos_Servidor/Trimestre 1/docker-lamp/www"``
 
 ### Ultimos pasos
 
